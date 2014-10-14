@@ -1,0 +1,264 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.amy.pcf/constraint/proconto.owl#"
+     xml:base="http://www.amy.pcf/constraint/proconto.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://www.amy.pcf/constraint/proconto.owl"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#hasAttribute -->
+
+    <owl:ObjectProperty rdf:about="http://www.amy.pcf/constraint/proconto.owl#hasAttribute">
+        <rdfs:range rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ConstraintAttribute"/>
+        <rdfs:domain rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ProcessElement"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#hasHandler -->
+
+    <owl:ObjectProperty rdf:about="http://www.amy.pcf/constraint/proconto.owl#hasHandler">
+        <rdfs:domain rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ExceptionHandler"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#hasInput -->
+
+    <owl:ObjectProperty rdf:about="http://www.amy.pcf/constraint/proconto.owl#hasInput">
+        <rdfs:domain rdf:resource="http://www.amy.pcf/constraint/proconto.owl#Activity"/>
+        <rdfs:range rdf:resource="http://www.amy.pcf/constraint/proconto.owl#Data"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#hasOutput -->
+
+    <owl:ObjectProperty rdf:about="http://www.amy.pcf/constraint/proconto.owl#hasOutput">
+        <rdfs:domain rdf:resource="http://www.amy.pcf/constraint/proconto.owl#Activity"/>
+        <rdfs:range rdf:resource="http://www.amy.pcf/constraint/proconto.owl#Data"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#hasPerformer -->
+
+    <owl:ObjectProperty rdf:about="http://www.amy.pcf/constraint/proconto.owl#hasPerformer">
+        <rdfs:domain rdf:resource="http://www.amy.pcf/constraint/proconto.owl#Activity"/>
+        <rdfs:range rdf:resource="http://www.amy.pcf/constraint/proconto.owl#Performer"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#hasType -->
+
+    <owl:ObjectProperty rdf:about="http://www.amy.pcf/constraint/proconto.owl#hasType">
+        <rdfs:domain rdf:resource="http://www.amy.pcf/constraint/proconto.owl#Exception"/>
+        <rdfs:range rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ExceptionType"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#occursAt -->
+
+    <owl:ObjectProperty rdf:about="http://www.amy.pcf/constraint/proconto.owl#occursAt">
+        <rdfs:domain rdf:resource="http://www.amy.pcf/constraint/proconto.owl#Exception"/>
+        <rdfs:range rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ProcessElement"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#producesOutput -->
+
+    <owl:ObjectProperty rdf:about="http://www.amy.pcf/constraint/proconto.owl#producesOutput">
+        <rdfs:range rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ConstraintAttribute"/>
+        <rdfs:domain rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ConstraintOperation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#relatesToAttribute -->
+
+    <owl:ObjectProperty rdf:about="http://www.amy.pcf/constraint/proconto.owl#relatesToAttribute">
+        <rdfs:range rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ConstraintAttribute"/>
+        <rdfs:domain rdf:resource="http://www.amy.pcf/constraint/proconto.owl#Exception"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#relatesToOperation -->
+
+    <owl:ObjectProperty rdf:about="http://www.amy.pcf/constraint/proconto.owl#relatesToOperation">
+        <rdfs:range rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ConstraintOperation"/>
+        <rdfs:domain rdf:resource="http://www.amy.pcf/constraint/proconto.owl#Exception"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#takesParameter -->
+
+    <owl:ObjectProperty rdf:about="http://www.amy.pcf/constraint/proconto.owl#takesParameter">
+        <rdfs:range rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ConstraintAttribute"/>
+        <rdfs:domain rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ConstraintOperation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#hasSize -->
+
+    <owl:DatatypeProperty rdf:about="http://www.amy.pcf/constraint/proconto.owl#hasSize">
+        <rdfs:domain rdf:resource="http://www.amy.pcf/constraint/proconto.owl#Data"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#Activity -->
+
+    <owl:Class rdf:about="http://www.amy.pcf/constraint/proconto.owl#Activity">
+        <rdfs:subClassOf rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ProcessElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#ConstraintAttribute -->
+
+    <owl:Class rdf:about="http://www.amy.pcf/constraint/proconto.owl#ConstraintAttribute"/>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#ConstraintOperation -->
+
+    <owl:Class rdf:about="http://www.amy.pcf/constraint/proconto.owl#ConstraintOperation"/>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#Data -->
+
+    <owl:Class rdf:about="http://www.amy.pcf/constraint/proconto.owl#Data">
+        <rdfs:subClassOf rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ProcessElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#Distance -->
+
+    <owl:Class rdf:about="http://www.amy.pcf/constraint/proconto.owl#Distance">
+        <rdfs:subClassOf rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ConstraintOperation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#Exception -->
+
+    <owl:Class rdf:about="http://www.amy.pcf/constraint/proconto.owl#Exception"/>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#ExceptionHandler -->
+
+    <owl:Class rdf:about="http://www.amy.pcf/constraint/proconto.owl#ExceptionHandler"/>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#ExceptionType -->
+
+    <owl:Class rdf:about="http://www.amy.pcf/constraint/proconto.owl#ExceptionType"/>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#FileSizeChecker -->
+
+    <owl:Class rdf:about="http://www.amy.pcf/constraint/proconto.owl#FileSizeChecker">
+        <rdfs:subClassOf rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ConstraintOperation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#GeoLocation -->
+
+    <owl:Class rdf:about="http://www.amy.pcf/constraint/proconto.owl#GeoLocation">
+        <rdfs:subClassOf rdf:resource="http://www.amy.pcf/constraint/proconto.owl#LocationAttribute"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#LocationAttribute -->
+
+    <owl:Class rdf:about="http://www.amy.pcf/constraint/proconto.owl#LocationAttribute">
+        <rdfs:subClassOf rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ConstraintAttribute"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#NepotismChecker -->
+
+    <owl:Class rdf:about="http://www.amy.pcf/constraint/proconto.owl#NepotismChecker">
+        <rdfs:subClassOf rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ConstraintOperation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#Performer -->
+
+    <owl:Class rdf:about="http://www.amy.pcf/constraint/proconto.owl#Performer">
+        <rdfs:subClassOf rdf:resource="http://www.amy.pcf/constraint/proconto.owl#ProcessElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.amy.pcf/constraint/proconto.owl#ProcessElement -->
+
+    <owl:Class rdf:about="http://www.amy.pcf/constraint/proconto.owl#ProcessElement"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

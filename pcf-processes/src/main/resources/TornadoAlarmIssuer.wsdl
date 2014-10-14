@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="TornadoAlarmIssuer"
+    targetNamespace="urn:edu.uga.cs.pcf:pcf-services:1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="urn:edu.uga.cs.pcf:pcf-services:1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="urn:edu.uga.cs.pcf:pcf-services:1.0"
+            attributeFormDefault="unqualified" elementFormDefault="qualified"
+            targetNamespace="urn:edu.uga.cs.pcf:pcf-services:1.0">
+            <xsd:element name="issue" type="tns:issue" />
+            <xsd:complexType name="issue">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="string"
+                        type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="issueResponse" type="tns:issueResponse" />
+            <xsd:complexType name="issueResponse">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="string"
+                        type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="issue">
+        <wsdl:part name="parameters" element="tns:issue">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="issueResponse">
+        <wsdl:part name="parameters" element="tns:issueResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="TornadoAlarmIssuerPortType">
+        <wsdl:operation name="issue">
+            <wsdl:input name="issue" message="tns:issue">
+            </wsdl:input>
+            <wsdl:output name="issueResponse" message="tns:issueResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="TornadoAlarmIssuerSoapBinding"
+        type="tns:TornadoAlarmIssuerPortType">
+        <soap:binding style="document"
+            transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="issue">
+            <soap:operation soapAction="issue" style="document" />
+            <wsdl:input name="issue">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="issueResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="TornadoAlarmIssuer">
+        <wsdl:port name="TornadoAlarmIssuerPort" binding="tns:TornadoAlarmIssuerSoapBinding">
+            <soap:address
+                location="http://localhost:8080/TornadoAlarmIssuer/TornadoAlarmIssuer" />
+        </wsdl:port>
+    </wsdl:service>
+    <plnk:partnerLinkType name="TornadoAlarmIssuerPLT">
+        <plnk:role name="TornadoAlarmIssuerService" portType="tns:TornadoAlarmIssuerPortType" />
+    </plnk:partnerLinkType>
+</wsdl:definitions>

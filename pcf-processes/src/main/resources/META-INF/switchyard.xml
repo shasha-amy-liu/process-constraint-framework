@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<switchyard xmlns="urn:switchyard-config:switchyard:1.1" xmlns:bean="urn:switchyard-component-bean:config:1.1" xmlns:bpm="urn:switchyard-component-bpm:config:1.1" xmlns:camel="urn:switchyard-component-camel:config:1.1" xmlns:emergencyReactionWorkflow="urn:edu.uga.cs.pcf:pcf-process:1.0" xmlns:emergencyReaction="urn:edu.uga.cs.pcf:pcf-process:1.0" xmlns:http="urn:switchyard-component-http:config:1.1" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:bpel="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:soap="urn:switchyard-component-soap:config:1.1" name="pcf-process" targetNamespace="urn:edu.uga.cs.pcf:pcf-process:1.0">
+  <sca:composite name="pcf-process" targetNamespace="urn:edu.uga.cs.pcf:pcf-process:1.0">
+    <sca:component name="GlycomicsWorkflowRoute">
+      <camel:implementation.camel>
+        <camel:java class="edu.uga.cs.pcf.process.glycomics.GlycomicsWorkflowRoute"/>
+      </camel:implementation.camel>
+      <sca:service name="GlycomicsWorkflow">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.GlycomicsWorkflow"/>
+      </sca:service>
+      <sca:reference name="RawDataProducer">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.RawDataProducer"/>
+      </sca:reference>
+      <sca:reference name="DataProcessorService">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.DataProcessorService"/>
+      </sca:reference>
+      <sca:reference name="SimulationOptimizationExecutor">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.SimulationOptimizationExecutor"/>
+      </sca:reference>
+      <sca:reference name="ResultVisualizer">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.ResultVisualizer"/>
+      </sca:reference>
+    </sca:component>
+    <sca:service name="GlycomicsWorkflow" promote="GlycomicsWorkflowRoute/GlycomicsWorkflow">
+      <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.GlycomicsWorkflow"/>
+      <http:binding.http name="http1">
+        <http:contextPath>processes/glycomics</http:contextPath>
+      </http:binding.http>
+    </sca:service>
+    <sca:component name="RawDataProducerBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.process.glycomics.RawDataProducerBean"/>
+      <sca:service name="RawDataProducer">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.RawDataProducer"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="ContextMonitorInvokerBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.process.monitor.ContextMonitorInvokerBean"/>
+      <sca:service name="ContextMonitorInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.monitor.ContextMonitorInvoker"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="FileSizeCheckerInvokerBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.process.glycomics.FileSizeCheckerInvokerBean"/>
+      <sca:service name="FileSizeCheckerInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.FileSizeCheckerInvoker"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="SlowDataProcessorInvokerBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.process.glycomics.SlowDataProcessorInvokerBean"/>
+      <sca:service name="SlowDataProcessorInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.SlowDataProcessorInvoker"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="FastDataProcessorInvokerBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.process.glycomics.FastDataProcessorInvokerBean"/>
+      <sca:service name="FastDataProcessorInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.FastDataProcessorInvoker"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="DataProcessorCamelServiceRoute">
+      <camel:implementation.camel>
+        <camel:java class="edu.uga.cs.pcf.process.glycomics.DataProcessorCamelServiceRoute"/>
+      </camel:implementation.camel>
+      <sca:service name="DataProcessorService">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.DataProcessorService"/>
+      </sca:service>
+      <sca:reference name="SlowDataProcessorInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.SlowDataProcessorInvoker"/>
+      </sca:reference>
+      <sca:reference name="FastDataProcessorInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.FastDataProcessorInvoker"/>
+      </sca:reference>
+      <sca:reference name="FileSizeCheckerInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.FileSizeCheckerInvoker"/>
+      </sca:reference>
+      <sca:reference name="ContextMonitorInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.monitor.ContextMonitorInvoker"/>
+      </sca:reference>
+    </sca:component>
+    <sca:component name="ResultVisualizerBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.process.glycomics.ResultVisualizerBean"/>
+      <sca:service name="ResultVisualizer">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.ResultVisualizer"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="SimulationOptimizationExecutorBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.process.glycomics.SimulationOptimizationExecutorBean"/>
+      <sca:service name="SimulationOptimizationExecutor">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.glycomics.SimulationOptimizationExecutor"/>
+      </sca:service>
+    </sca:component>
+    <sca:reference name="TornadoDetector" multiplicity="0..1" promote="TornadoDetector">
+      <sca:interface.wsdl interface="TornadoDetector.wsdl#wsdl.porttype(TornadoDetectorPortType)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>TornadoDetector.wsdl</soap:wsdl>
+      </soap:binding.soap>
+    </sca:reference>
+    <sca:component name="EmergencyReactionWorkflow">
+      <sca:implementation.bpel process="emergencyReaction:EmergencyReactionWorkflow"/>
+      <sca:service name="EmergencyReactionWorkflowService">
+        <sca:interface.wsdl interface="EmergencyReactionWorkflowArtifacts.wsdl#wsdl.porttype(EmergencyReactionWorkflow)"/>
+      </sca:service>
+      <sca:reference name="TornadoDetector">
+        <sca:interface.wsdl interface="TornadoDetector.wsdl#wsdl.porttype(TornadoDetectorPortType)"/>
+      </sca:reference>
+      <sca:reference name="TornadoAlarmIssuer">
+        <sca:interface.wsdl interface="TornadoAlarmIssuer.wsdl#wsdl.porttype(TornadoAlarmIssuerPortType)"/>
+      </sca:reference>
+      <sca:reference name="HospitalPreparer">
+        <sca:interface.wsdl interface="HospitalPreparer.wsdl#wsdl.porttype(HospitalPreparerPortType)"/>
+      </sca:reference>
+      <sca:reference name="ShelterActivator">
+        <sca:interface.wsdl interface="ShelterActivator.wsdl#wsdl.porttype(ShelterActivatorPortType)"/>
+      </sca:reference>
+    </sca:component>
+    <sca:service name="EmergencyReactionWorkflowService" promote="EmergencyReactionWorkflow/EmergencyReactionWorkflowService">
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>EmergencyReactionWorkflowArtifacts.wsdl</soap:wsdl>
+        <soap:contextPath>EmergencyReactionWorkflow</soap:contextPath>
+      </soap:binding.soap>
+    </sca:service>
+    <sca:reference name="TornadoAlarmIssuer" multiplicity="0..1" promote="TornadoAlarmIssuer">
+      <sca:interface.wsdl interface="TornadoAlarmIssuer.wsdl#wsdl.porttype(TornadoAlarmIssuerPortType)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>TornadoAlarmIssuer.wsdl</soap:wsdl>
+      </soap:binding.soap>
+    </sca:reference>
+    <sca:reference name="HospitalPreparerService" multiplicity="0..1" promote="HospitalPreparerService">
+      <sca:interface.wsdl interface="HospitalPreparer.wsdl#wsdl.porttype(HospitalPreparerPortType)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>HospitalPreparer.wsdl</soap:wsdl>
+      </soap:binding.soap>
+    </sca:reference>
+    <sca:reference name="ShelterActivator" multiplicity="0..1" promote="ShelterActivator">
+      <sca:interface.wsdl interface="ShelterActivator.wsdl#wsdl.porttype(ShelterActivatorPortType)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>ShelterActivator.wsdl</soap:wsdl>
+      </soap:binding.soap>
+    </sca:reference>
+    <sca:component name="HospitalPreparerCamelServiceRoute">
+      <camel:implementation.camel>
+        <camel:java class="edu.uga.cs.pcf.process.emergencyreaction.HospitalPreparerCamelServiceRoute"/>
+      </camel:implementation.camel>
+      <sca:service name="HospitalPreparer">
+        <sca:interface.wsdl interface="HospitalPreparer.wsdl#wsdl.porttype(HospitalPreparerPortType)"/>
+      </sca:service>
+      <sca:reference name="HospitalPreparerService">
+        <sca:interface.wsdl interface="HospitalPreparer.wsdl#wsdl.porttype(HospitalPreparerPortType)"/>
+      </sca:reference>
+      <sca:reference name="DistanceCheckerInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.emergencyreaction.DistanceCheckerInvoker"/>
+      </sca:reference>
+      <sca:reference name="FailedConstraintOperationLoggerInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.emergencyreaction.FailedConstraintOperationLoggerInvoker"/>
+      </sca:reference>
+      <sca:reference name="ContextMonitorInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.monitor.ContextMonitorInvoker"/>
+      </sca:reference>
+    </sca:component>
+    <sca:component name="DistanceCheckerInvokerBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.process.emergencyreaction.DistanceCheckerInvokerBean"/>
+      <sca:service name="DistanceCheckerInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.emergencyreaction.DistanceCheckerInvoker"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="FailedConstraintOperationLoggerInvokerBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.process.emergencyreaction.FailedConstraintOperationLoggerInvokerBean"/>
+      <sca:service name="FailedConstraintOperationLoggerInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.emergencyreaction.FailedConstraintOperationLoggerInvoker"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="JobInterviewProcess">
+      <bpm:implementation.bpm persistent="false" processId="JobInterviewProcess">
+        <bpm:manifest>
+          <bpm:resources>
+            <bpm:resource location="JobInterviewProcess.bpmn" type="BPMN2"/>
+          </bpm:resources>
+        </bpm:manifest>
+        <bpm:operations>
+          <bpm:operation type="START_PROCESS"/>
+        </bpm:operations>
+      </bpm:implementation.bpm>
+      <sca:service name="JobInterviewProcess">
+        <sca:interface.wsdl interface="JobInterviewProcess.wsdl#wsdl.porttype(JobInterviewProcessPortType)"/>
+      </sca:service>
+      <sca:reference name="JobApplication">
+        <sca:interface.wsdl interface="JobApplication.wsdl#wsdl.porttype(JobApplicationPortType)"/>
+      </sca:reference>
+      <sca:reference name="JobInterview">
+        <sca:interface.wsdl interface="JobInterview.wsdl#wsdl.porttype(JobInterviewPortType)"/>
+      </sca:reference>
+    </sca:component>
+    <sca:service name="JobInterviewProcess" promote="JobInterviewProcess/JobInterviewProcess">
+      <sca:interface.wsdl interface="JobInterviewProcess.wsdl#wsdl.porttype(JobInterviewProcessPortType)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>JobInterviewProcess.wsdl</soap:wsdl>
+        <soap:contextPath>JobInterviewProcess</soap:contextPath>
+      </soap:binding.soap>
+    </sca:service>
+    <sca:reference name="JobApplication" multiplicity="0..1" promote="JobApplication">
+      <sca:interface.wsdl interface="JobApplication.wsdl#wsdl.porttype(JobApplicationPortType)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>JobApplication.wsdl</soap:wsdl>
+      </soap:binding.soap>
+    </sca:reference>
+    <sca:reference name="JobInterviewService" multiplicity="0..1" promote="JobInterviewService">
+      <sca:interface.wsdl interface="JobInterview.wsdl#wsdl.porttype(JobInterviewPortType)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>JobInterview.wsdl</soap:wsdl>
+      </soap:binding.soap>
+    </sca:reference>
+    <sca:component name="JobInterviewCamelServiceRoute">
+      <camel:implementation.camel>
+        <camel:java class="edu.uga.cs.pcf.services.jobinterview.JobInterviewCamelServiceRoute"/>
+      </camel:implementation.camel>
+      <sca:service name="JobInterview">
+        <sca:interface.wsdl interface="JobInterview.wsdl#wsdl.porttype(JobInterviewPortType)"/>
+      </sca:service>
+      <sca:reference name="JobInterviewService">
+        <sca:interface.wsdl interface="JobInterview.wsdl#wsdl.porttype(JobInterviewPortType)"/>
+      </sca:reference>
+      <sca:reference name="NepotismCheckerInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.services.jobinterview.NepotismCheckerInvoker"/>
+      </sca:reference>
+      <sca:reference name="FailedConstraintOperationLoggerInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.emergencyreaction.FailedConstraintOperationLoggerInvoker"/>
+      </sca:reference>
+      <sca:reference name="ContextMonitorInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.process.monitor.ContextMonitorInvoker"/>
+      </sca:reference>
+    </sca:component>
+    <sca:component name="NepotismCheckerInvokerBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.services.jobinterview.NepotismCheckerInvokerBean"/>
+      <sca:service name="NepotismCheckerInvoker">
+        <sca:interface.java interface="edu.uga.cs.pcf.services.jobinterview.NepotismCheckerInvoker"/>
+      </sca:service>
+    </sca:component>
+  </sca:composite>
+</switchyard>

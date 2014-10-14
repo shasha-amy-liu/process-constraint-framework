@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ShelterActivator"
+    targetNamespace="urn:edu.uga.cs.pcf:pcf-services:1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="urn:edu.uga.cs.pcf:pcf-services:1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="urn:edu.uga.cs.pcf:pcf-services:1.0"
+            attributeFormDefault="unqualified" elementFormDefault="qualified"
+            targetNamespace="urn:edu.uga.cs.pcf:pcf-services:1.0">
+            <xsd:element name="activate" type="tns:activate" />
+            <xsd:complexType name="activate">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="string"
+                        type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="activateResponse" type="tns:activateResponse" />
+            <xsd:complexType name="activateResponse">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="string"
+                        type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="activateResponse">
+        <wsdl:part name="parameters" element="tns:activateResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="activate">
+        <wsdl:part name="parameters" element="tns:activate">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="ShelterActivatorPortType">
+        <wsdl:operation name="activate">
+            <wsdl:input name="activate" message="tns:activate">
+            </wsdl:input>
+            <wsdl:output name="activateResponse" message="tns:activateResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ShelterActivatorSoapBinding" type="tns:ShelterActivatorPortType">
+        <soap:binding style="document"
+            transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="activate">
+            <soap:operation soapAction="activate" style="document" />
+            <wsdl:input name="activate">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="activateResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ShelterActivator">
+        <wsdl:port name="ShelterActivatorPort" binding="tns:ShelterActivatorSoapBinding">
+            <soap:address
+                location="http://localhost:8080/ShelterActivator/ShelterActivator" />
+        </wsdl:port>
+    </wsdl:service>
+    <plnk:partnerLinkType name="ShelterActivatorPLT">
+        <plnk:role name="ShelterActivatorService" portType="tns:ShelterActivatorPortType" />
+    </plnk:partnerLinkType>
+</wsdl:definitions>

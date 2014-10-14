@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sy:switchyard xmlns:bean="urn:switchyard-component-bean:config:1.1" xmlns:bpm="urn:switchyard-component-bpm:config:1.1" xmlns:camel="urn:switchyard-component-camel:config:1.1" xmlns:http="urn:switchyard-component-http:config:1.1" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:soap="urn:switchyard-component-soap:config:1.1" xmlns:sy="urn:switchyard-config:switchyard:1.1" xmlns:transform="urn:switchyard-config:transform:1.1" name="pcf-services" targetNamespace="urn:edu.uga.cs.pcf:pcf-services:1.0">
+  <sca:composite name="pcf-services" targetNamespace="urn:edu.uga.cs.pcf:pcf-services:1.0">
+    <sca:component name="SlowDataProcessorBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.services.glycomics.SlowDataProcessorBean"/>
+      <sca:service name="SlowDataProcessor">
+        <sca:interface.java interface="edu.uga.cs.pcf.services.glycomics.SlowDataProcessor"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="FastDataProcessorBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.services.glycomics.FastDataProcessorBean"/>
+      <sca:service name="FastDataProcessor">
+        <sca:interface.java interface="edu.uga.cs.pcf.services.glycomics.FastDataProcessor"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="HelloWorldBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.services.helloworld.HelloWorldBean"/>
+      <sca:service name="HelloWorld">
+        <sca:interface.java interface="edu.uga.cs.pcf.services.helloworld.HelloWorld"/>
+      </sca:service>
+    </sca:component>
+    <sca:service name="HelloWorld" promote="HelloWorldBean/HelloWorld">
+      <sca:interface.java interface="edu.uga.cs.pcf.services.helloworld.HelloWorld"/>
+      <http:binding.http name="http1">
+        <http:contextPath>pcf-services/services/helloworld</http:contextPath>
+      </http:binding.http>
+    </sca:service>
+    <sca:service name="FastDataProcessor" promote="FastDataProcessorBean/FastDataProcessor">
+      <sca:interface.java interface="edu.uga.cs.pcf.services.glycomics.FastDataProcessor"/>
+      <sca:binding.sca name="FastDataProcessor"/>
+    </sca:service>
+    <sca:service name="SlowDataProcessor" promote="SlowDataProcessorBean/SlowDataProcessor">
+      <sca:interface.java interface="edu.uga.cs.pcf.services.glycomics.SlowDataProcessor"/>
+      <sca:binding.sca name="SlowDataProcessor"/>
+    </sca:service>
+    <sca:component name="TornadoDetectorBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.services.emergencyreaction.TornadoDetectorBean"/>
+      <sca:service name="TornadoDetector">
+        <sca:interface.java interface="edu.uga.cs.pcf.services.emergencyreaction.TornadoDetector"/>
+      </sca:service>
+    </sca:component>
+    <sca:service name="TornadoDetectorPortType" promote="TornadoDetectorBean/TornadoDetector">
+      <sca:interface.wsdl interface="wsdl/TornadoDetector.wsdl#wsdl.porttype(TornadoDetectorPortType)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>wsdl/TornadoDetector.wsdl</soap:wsdl>
+        <soap:contextPath>TornadoDetector</soap:contextPath>
+      </soap:binding.soap>
+    </sca:service>
+    <sca:component name="TornadoAlarmIssuerBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.services.emergencyreaction.TornadoAlarmIssuerBean"/>
+      <sca:service name="TornadoAlarmIssuer">
+        <sca:interface.java interface="edu.uga.cs.pcf.services.emergencyreaction.TornadoAlarmIssuer"/>
+      </sca:service>
+    </sca:component>
+    <sca:service name="TornadoAlarmIssuerPortType" promote="TornadoAlarmIssuerBean/TornadoAlarmIssuer">
+      <sca:interface.wsdl interface="wsdl/TornadoAlarmIssuer.wsdl#wsdl.porttype(TornadoAlarmIssuerPortType)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>wsdl/TornadoAlarmIssuer.wsdl</soap:wsdl>
+        <soap:contextPath>TornadoAlarmIssuer</soap:contextPath>
+      </soap:binding.soap>
+    </sca:service>
+    <sca:component name="HospitalPreparerBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.services.emergencyreaction.HospitalPreparerBean"/>
+      <sca:service name="HospitalPreparer">
+        <sca:interface.java interface="edu.uga.cs.pcf.services.emergencyreaction.HospitalPreparer"/>
+      </sca:service>
+    </sca:component>
+    <sca:service name="HospitalPreparer" promote="HospitalPreparerBean/HospitalPreparer">
+      <sca:interface.wsdl interface="wsdl/HospitalPreparer.wsdl#wsdl.porttype(HospitalPreparerPortType)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>wsdl/HospitalPreparer.wsdl</soap:wsdl>
+        <soap:contextPath>HospitalPreparer</soap:contextPath>
+      </soap:binding.soap>
+    </sca:service>
+    <sca:component name="ShelterActivatorBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.services.emergencyreaction.ShelterActivatorBean"/>
+      <sca:service name="ShelterActivator">
+        <sca:interface.java interface="edu.uga.cs.pcf.services.emergencyreaction.ShelterActivator"/>
+      </sca:service>
+    </sca:component>
+    <sca:service name="ShelterActivatorPortType" promote="ShelterActivatorBean/ShelterActivator">
+      <sca:interface.wsdl interface="wsdl/ShelterActivator.wsdl#wsdl.porttype(ShelterActivatorPortType)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>wsdl/ShelterActivator.wsdl</soap:wsdl>
+        <soap:contextPath>ShelterActivator</soap:contextPath>
+      </soap:binding.soap>
+    </sca:service>
+    <sca:component name="JobApplicationBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.services.jobinterview.JobApplicationBean"/>
+      <sca:service name="JobApplication">
+        <sca:interface.java interface="edu.uga.cs.pcf.services.jobinterview.JobApplication"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="JobInterviewBean">
+      <bean:implementation.bean class="edu.uga.cs.pcf.services.jobinterview.JobInterviewBean"/>
+      <sca:service name="JobInterview">
+        <sca:interface.java interface="edu.uga.cs.pcf.services.jobinterview.JobInterview"/>
+      </sca:service>
+    </sca:component>
+    <sca:service name="JobApplication" promote="JobApplicationBean/JobApplication">
+      <sca:interface.wsdl interface="wsdl/JobApplication.wsdl#wsdl.porttype(JobApplicationPortType)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>wsdl/JobApplication.wsdl</soap:wsdl>
+        <soap:contextPath>JobApplication</soap:contextPath>
+      </soap:binding.soap>
+    </sca:service>
+    <sca:service name="JobInterview" promote="JobInterviewBean/JobInterview">
+      <sca:interface.wsdl interface="wsdl/JobInterview.wsdl#wsdl.porttype(JobInterviewPortType)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>wsdl/JobInterview.wsdl</soap:wsdl>
+        <soap:contextPath>JobInterview</soap:contextPath>
+      </soap:binding.soap>
+    </sca:service>
+  </sca:composite>
+  <sy:transforms>
+    <transform:transform.jaxb from="java:edu.uga.cs.pcf.services.jobinterview.Interview" to="{urn:edu.uga.cs.pcf:pcf-services:1.0}interview" contextPath="edu.uga.cs.pcf.services.jobinterview"/>
+    <transform:transform.jaxb from="{urn:edu.uga.cs.pcf:pcf-services:1.0}interview" to="java:edu.uga.cs.pcf.services.jobinterview.Interview" contextPath="edu.uga.cs.pcf.services.jobinterview"/>
+    <transform:transform.jaxb from="java:edu.uga.cs.pcf.services.jobinterview.InterviewResult" to="{urn:edu.uga.cs.pcf:pcf-services:1.0}interviewResult" contextPath="edu.uga.cs.pcf.services.jobinterview"/>
+  </sy:transforms>
+</sy:switchyard>

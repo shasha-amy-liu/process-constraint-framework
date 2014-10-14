@@ -1,0 +1,5 @@
+constraint nepotismChecker
+context t1:JobInterview
+pre not isRelative(t1.interviewer, t1.interviewee)
+exception when NepotismException
+          then FailedConstraintOperationLogger

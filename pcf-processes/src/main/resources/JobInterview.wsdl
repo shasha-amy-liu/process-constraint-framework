@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="JobInterview" targetNamespace="urn:edu.uga.cs.pcf:pcf-services:1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:edu.uga.cs.pcf:pcf-services:1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:edu.uga.cs.pcf:pcf-services:1.0" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:edu.uga.cs.pcf:pcf-services:1.0">
+  <xs:element name="Interview" type="tns:interview"/>
+  <xs:element name="InterviewResult" type="tns:interviewResult"/>
+  <xs:complexType name="interview">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="interviewee" type="xs:string"/>
+      <xs:element minOccurs="0" name="interviewer" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="interviewResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="interviewee" type="xs:string"/>
+      <xs:element minOccurs="0" name="interviewer" type="xs:string"/>
+      <xs:element minOccurs="0" name="result" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="interview" nillable="true" type="tns:interview"/>
+  <xs:element name="interviewResult" nillable="true" type="tns:interviewResult"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="processResponse">
+    <wsdl:part name="return" element="tns:interviewResult">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="process">
+    <wsdl:part name="arg0" element="tns:interview">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="JobInterviewPortType">
+    <wsdl:operation name="process">
+      <wsdl:input name="process" message="tns:process">
+    </wsdl:input>
+      <wsdl:output name="processResponse" message="tns:processResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="JobInterviewSoapBinding" type="tns:JobInterviewPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="process">
+      <soap:operation soapAction="process" style="document"/>
+      <wsdl:input name="process">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="processResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="JobInterview">
+    <wsdl:port name="JobInterviewPort" binding="tns:JobInterviewSoapBinding">
+      <soap:address location="http://localhost:8080/JobInterview/JobInterview"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

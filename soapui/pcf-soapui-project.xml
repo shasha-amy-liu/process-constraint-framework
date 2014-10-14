@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="pcf" resourceRoot="${projectDir}" soapui-version="5.0.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="JobInterviewProcessSoapBinding" type="wsdl" bindingName="{urn:edu.uga.cs.pcf:pcf-services:1.0}JobInterviewProcessSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/JobInterviewProcess/JobInterviewProcess?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.tcpmon.TcpMonAction@values-local">&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  &lt;con:entry key="Local Port" value=""/>
+  &lt;con:entry key="Add local endpoint" value="false"/>
+  &lt;con:entry key="Endpoint" value=""/>
+&lt;/xml-fragment></con:setting></con:settings><con:definitionCache type="TEXT" rootPart="http://localhost:8080/JobInterviewProcess/JobInterviewProcess?wsdl"><con:part><con:url>http://localhost:8080/JobInterviewProcess/JobInterviewProcess?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="JobInterviewProcess" targetNamespace="urn:edu.uga.cs.pcf:pcf-services:1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:edu.uga.cs.pcf:pcf-services:1.0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema targetNamespace="urn:edu.uga.cs.pcf:pcf-services:1.0" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="interview" type="tns:interview"/>
+      <xs:element name="interviewResult" type="tns:interviewResult"/>
+      <xs:complexType name="interview">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="interviewee" type="xs:string"/>
+          <xs:element minOccurs="0" name="interviewer" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="interviewResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="interviewee" type="xs:string"/>
+          <xs:element minOccurs="0" name="interviewer" type="xs:string"/>
+          <xs:element minOccurs="0" name="result" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="processResponse">
+    <wsdl:part element="tns:interviewResult" name="return"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="process">
+    <wsdl:part element="tns:interview" name="arg0"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="JobInterviewProcessPortType">
+    <wsdl:operation name="process">
+      <wsdl:input message="tns:process" name="process"></wsdl:input>
+      <wsdl:output message="tns:processResponse" name="processResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="JobInterviewProcessSoapBinding" type="tns:JobInterviewProcessPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="process">
+      <soap:operation soapAction="process" style="document"/>
+      <wsdl:input name="process">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="processResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="JobInterviewProcess">
+    <wsdl:port binding="tns:JobInterviewProcessSoapBinding" name="JobInterviewProcessPort">
+      <soap:address location="http://localhost:8080/JobInterviewProcess/JobInterviewProcess"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/JobInterviewProcess/JobInterviewProcess</con:endpoint></con:endpoints><con:operation isOneWay="false" action="process" name="process" bindingOperationName="process" type="Request-Response" outputName="processResponse" inputName="process" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/JobInterviewProcess/JobInterviewProcess</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:edu.uga.cs.pcf:pcf-services:1.0">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:interview>
+         <interviewee>sdfsdfdf</interviewee>
+      </urn:interview>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="process"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EmergencyReactionWorkflowBinding" type="wsdl" bindingName="{urn:edu.uga.cs.pcf:pcf-process:1.0}EmergencyReactionWorkflowBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/EmergencyReactionWorkflow/EmergencyReactionWorkflowService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/EmergencyReactionWorkflow/EmergencyReactionWorkflowService?wsdl"><con:part><con:url>http://localhost:8080/EmergencyReactionWorkflow/EmergencyReactionWorkflowService?wsdl</con:url><con:content><![CDATA[<definitions name="EmergencyReactionWorkflow" targetNamespace="urn:edu.uga.cs.pcf:pcf-process:1.0" xmlns:tns="urn:edu.uga.cs.pcf:pcf-process:1.0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:edu.uga.cs.pcf:pcf-process:1.0" xmlns="http://www.w3.org/2001/XMLSchema">
+      <element name="EmergencyReactionWorkflowRequest">
+        <complexType>
+          <sequence>
+            <element name="input" type="string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="EmergencyReactionWorkflowResponse">
+        <complexType>
+          <sequence>
+            <element name="result" type="string"/>
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="EmergencyReactionWorkflowRequestMessage">
+    <part element="tns:EmergencyReactionWorkflowRequest" name="payload"></part>
+  </message>
+  <message name="EmergencyReactionWorkflowResponseMessage">
+    <part element="tns:EmergencyReactionWorkflowResponse" name="payload"></part>
+  </message>
+  <portType name="EmergencyReactionWorkflow">
+    <operation name="process">
+      <input message="tns:EmergencyReactionWorkflowRequestMessage"></input>
+      <output message="tns:EmergencyReactionWorkflowResponseMessage"></output>
+    </operation>
+  </portType>
+  <binding name="EmergencyReactionWorkflowBinding" type="tns:EmergencyReactionWorkflow">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="process">
+      <soap:operation soapAction="urn:edu.uga.cs.pcf:pcf-process:1.0/process"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="EmergencyReactionWorkflowService">
+    <port binding="tns:EmergencyReactionWorkflowBinding" name="EmergencyReactionWorkflowPort">
+      <soap:address location="http://localhost:8080/EmergencyReactionWorkflow/EmergencyReactionWorkflowService"/>
+    </port>
+  </service>
+  <plnk:partnerLinkType name="EmergencyReactionWorkflow">
+    <plnk:role name="EmergencyReactionWorkflowProvider" portType="tns:EmergencyReactionWorkflow"/>
+  </plnk:partnerLinkType>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/EmergencyReactionWorkflow/EmergencyReactionWorkflowService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:edu.uga.cs.pcf:pcf-process:1.0/process" name="process" bindingOperationName="process" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/EmergencyReactionWorkflow/EmergencyReactionWorkflowService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:edu.uga.cs.pcf:pcf-process:1.0">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:EmergencyReactionWorkflowRequest>
+         <urn:input>sfdsdf</urn:input>
+      </urn:EmergencyReactionWorkflowRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:edu.uga.cs.pcf:pcf-process:1.0/process"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:8080" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints><con:endpoint>http://localhost:8080</con:endpoint></con:endpoints><con:resource name="Glycomics" path="/processes/glycomics"><con:settings/><con:parameters/><con:method name="Glycomics" method="POST"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>text/html</con:mediaType><con:status>200</con:status><con:params/><con:element>html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="Request 1" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>sdfsdfsdf</con:request><con:originalUri>http://localhost/</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:resource name="sayhello" path="/pcf/switchyard/sayhello"><con:settings/><con:parameters/><con:method name="Method 1" method="POST"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="Request 1" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>dsdasdsad</con:request><con:originalUri>http://localhost/pcf/switchyard/sayhello</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

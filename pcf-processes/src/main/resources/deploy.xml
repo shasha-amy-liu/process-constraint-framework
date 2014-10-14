@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:pcf-process_1.0="urn:edu.uga.cs.pcf:pcf-process:1.0" xmlns:pcf-services_1.0="urn:edu.uga.cs.pcf:pcf-services:1.0">
+  <process name="pcf-process_1.0:EmergencyReactionWorkflow">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="pcf-process_1.0:EmergencyReactionWorkflowService" port="EmergencyReactionWorkflowPort"/>
+    </provide>
+    <invoke partnerLink="TornadoDetector" usePeer2Peer="false">
+      <service name="pcf-process_1.0:TornadoDetector" port="TornadoDetectorPort"/>
+    </invoke>
+    <invoke partnerLink="TornadoAlarmIssuer" usePeer2Peer="false">
+      <service name="pcf-process_1.0:TornadoAlarmIssuer" port="TornadoAlarmIssuerPort"/>
+    </invoke>
+    <invoke partnerLink="HospitalPreparer" usePeer2Peer="false">
+      <service name="pcf-process_1.0:HospitalPreparer" port="HospitalPreparerPort"/>
+    </invoke>
+    <invoke partnerLink="ShelterActivator" usePeer2Peer="false">
+      <service name="pcf-process_1.0:ShelterActivator" port="ShelterActivatorPort"/>
+    </invoke>
+  </process>
+</deploy>
